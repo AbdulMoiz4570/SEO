@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPrime - Suzuki, Honda & Toyota Corolla Showcase</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#E53E3E',
+                            blue: '#2B6CB0',
+                            dark: '#0F172A',
+                            gold: '#D69E2E',
+                            accent: '#2563EB'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card-glow:hover {
+            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.3);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-slate-950/80 border-b border-slate-800/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-blue-500/30">
+                        <i class="fa-solid fa-car-side"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">Auto<span class="text-blue-500">Prime</span></span>
+                        <span class="hidden sm:inline-block text-xs text-slate-400 block -mt-1 font-medium">Suzuki • Honda • Corolla</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+                    <a href="#hero" class="hover:text-blue-400 transition-colors">Home</a>
+                    <a href="#showcase" class="hover:text-blue-400 transition-colors">Showroom</a>
+                    <a href="#comparison" class="hover:text-blue-400 transition-colors">Compare</a>
+                    <a href="#calculator" class="hover:text-blue-400 transition-colors">Calculator</a>
+                    <a href="#reviews" class="hover:text-blue-400 transition-colors">Reviews</a>
+                </nav>
+
+                <!-- Action Button & Mobile Menu Toggle -->
+                <div class="flex items-center gap-3">
+                    <button onclick="scrollToShowcase()" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm px-5 py-2.5 rounded-xl shadow-lg shadow-blue-600/25 transition-all duration-200 active:scale-95">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i> Explore Cars
+                    </button>
+                    <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-800 bg-slate-900/95 px-4 pt-2 pb-6 space-y-3">
+            <a href="#hero" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white font-medium">Home</a>
+            <a href="#showcase" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white font-medium">Showroom</a>
+            <a href="#comparison" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white font-medium">Compare</a>
+            <a href="#calculator" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white font-medium">Calculator</a>
+            <a href="#reviews" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white font-medium">Reviews</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28 bg-slate-950">
+        <!-- Background Glows -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/15 blur-[120px] rounded-full pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-[300px] h-[300px] bg-red-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs font-semibold text-blue-400">
+                    <span class="flex h-2 w-2 rounded-full bg-blue-500 animate-ping"></span>
+                    2026 Fleet Edition Available Now
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white">
+                    Discover Top-Tier <br class="hidden sm:inline">
+                    <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-red-400 bg-clip-text text-transparent">Suzuki, Honda & Toyota Corolla</span> Models
+                </h1>
+                
+                <p class="text-base sm:text-lg text-slate-400 font-normal leading-relaxed">
+                    Compare features, check exact specifications, calculate monthly EMI financing, and schedule test drives for the most popular vehicles on the road today.
+                </p>
+
+                <div class="pt-2 flex flex-wrap items-center justify-center gap-4">
+                    <a href="#showcase" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-7 py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition-all duration-200">
+                        Browse Cars Catalog <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="#comparison" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 font-semibold px-7 py-3.5 rounded-xl transition-all duration-200">
+                        <i class="fa-solid fa-code-compare text-xs"></i> Compare Models
+                    </a>
+                </div>
+
+                <!-- Fast Stats -->
+                <div class="pt-10 grid grid-cols-2 md:grid-cols-4 gap-4 text-left border-t border-slate-900">
+                    <div class="p-4 rounded-xl bg-slate-900/50 border border-slate-800/60">
+                        <div class="text-2xl font-bold text-white">100%</div>
+                        <div class="text-xs text-slate-400 mt-1">Verified Specs</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900/50 border border-slate-800/60">
+                        <div class="text-2xl font-bold text-white">18+</div>
+                        <div class="text-xs text-slate-400 mt-1">Key Variants</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900/50 border border-slate-800/60">
+                        <div class="text-2xl font-bold text-white">Instant</div>
+                        <div class="text-xs text-slate-400 mt-1">Test Drive Booking</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900/50 border border-slate-800/60">
+                        <div class="text-2xl font-bold text-white">EMI</div>
+                        <div class="text-xs text-slate-400 mt-1">Finance Calculator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Showcase Section -->
+    <section id="showcase" class="py-16 bg-slate-900/50 border-y border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                <div>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Interactive Showroom</h2>
+                    <p class="text-slate-400 text-sm mt-1">Filter by manufacturer or search by model name and features.</p>
+                </div>
+
+                <!-- Search Input Bar -->
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                    <input type="text" id="search-input" placeholder="Search Suzuki, Civic, Corolla..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors">
+                </div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap items-center gap-2 mb-8">
+                <button data-filter="All" class="filter-btn active px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-blue-600 text-white shadow-md">
+                    All Cars
+                </button>
+                <button data-filter="Suzuki" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                    <i class="fa-solid fa-s text-red-500 mr-1.5"></i> Suzuki
+                </button>
+                <button data-filter="Honda" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                    <i class="fa-solid fa-h text-blue-400 mr-1.5"></i> Honda
+                </button>
+                <button data-filter="Toyota Corolla" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                    <i class="fa-solid fa-c text-amber-400 mr-1.5"></i> Toyota Corolla
+                </button>
+            </div>
+
+            <!-- Vehicle Cards Grid -->
+            <div id="cars-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will dynamically inject card components here -->
+            </div>
+
+            <!-- No Results Container -->
+            <div id="no-results" class="hidden text-center py-16 bg-slate-950/50 rounded-2xl border border-slate-800">
+                <i class="fa-solid fa-car-burst text-4xl text-slate-600 mb-3"></i>
+                <h3 class="text-lg font-bold text-slate-300">No vehicles found</h3>
+                <p class="text-slate-500 text-sm mt-1">Try adjusting your search criteria or brand filter.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Tool Section -->
+    <section id="comparison" class="py-16 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Side by Side</span>
+                <h2 class="text-3xl font-bold text-white mt-1">Vehicle Comparison</h2>
+                <p class="text-slate-400 text-sm mt-2">Select any two vehicles to compare specifications, power output, and pricing.</p>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                <!-- Selector Controls -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Select Vehicle 1</label>
+                        <select id="compare-car-1" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+                            <!-- Options injected by JS -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Select Vehicle 2</label>
+                        <select id="compare-car-2" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+                            <!-- Options injected by JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Comparison Display Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-300 border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-800">
+                                <th class="py-3 px-4 font-semibold text-slate-400 w-1/3">Feature</th>
+                                <th id="cmp-name-1" class="py-3 px-4 font-bold text-blue-400 text-base w-1/3">-</th>
+                                <th id="cmp-name-2" class="py-3 px-4 font-bold text-indigo-400 text-base w-1/3">-</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60">
+                            <tr>
+                                <td class="py-3 px-4 text-slate-400 font-medium">Brand</td>
+                                <td id="cmp-brand-1" class="py-3 px-4">-</td>
+                                <td id="cmp-brand-2" class="py-3 px-4">-</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 text-slate-400 font-medium">Starting Price</td>
+                                <td id="cmp-price-1" class="py-3 px-4 font-semibold text-green-400">-</td>
+                                <td id="cmp-price-2" class="py-3 px-4 font-semibold text-green-400">-</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 text-slate-400 font-medium">Engine Displacement</td>
+                                <td id="cmp-engine-1" class="py-3 px-4">-</td>
+                                <td id="cmp-engine-2" class="py-3 px-4">-</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 text-slate-400 font-medium">Horsepower</td>
+                                <td id="cmp-hp-1" class="py-3 px-4">-</td>
+                                <td id="cmp-hp-2" class="py-3 px-4">-</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 text-slate-400 font-medium">Transmission</td>
+                                <td id="cmp-trans-1" class="py-3 px-4">-</td>
+                                <td id="cmp-trans-2" class="py-3 px-4">-</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 text-slate-400 font-medium">Fuel Economy</td>
+                                <td id="cmp-mpg-1" class="py-3 px-4">-</td>
+                                <td id="cmp-mpg-2" class="py-3 px-4">-</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 text-slate-400 font-medium">Body Style</td>
+                                <td id="cmp-body-1" class="py-3 px-4">-</td>
+                                <td id="cmp-body-2" class="py-3 px-4">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Finance Calculator Section -->
+    <section id="calculator" class="py-16 bg-slate-900/50 border-y border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="lg:col-span-5 space-y-4">
+                    <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Estimate Costs</span>
+                    <h2 class="text-3xl font-bold text-white">Car Loan & EMI Calculator</h2>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Planning to purchase your dream Suzuki, Honda, or Corolla? Use our interactive calculator to estimate monthly installment payments based on down payment and tenure.
+                    </p>
+                    <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 space-y-2">
+                        <div class="flex items-center gap-2 text-slate-300 font-semibold">
+                            <i class="fa-solid fa-circle-info text-blue-400"></i> Financial Note
+                        </div>
+                        <p>Rates are indicative and subject to final bank approval and local taxes.</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-slate-950 border border-slate-800 rounded-2xl p-6 sm:p-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Vehicle Price ($ USD)</label>
+                            <input type="number" id="calc-price" value="25000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Down Payment ($ USD)</label>
+                            <input type="number" id="calc-down" value="5000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Interest Rate (%)</label>
+                            <input type="number" id="calc-rate" step="0.1" value="7.5" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Tenure (Years)</label>
+                            <select id="calc-tenure" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
+                                <option value="1">1 Year (12 months)</option>
+                                <option value="2">2 Years (24 months)</option>
+                                <option value="3" selected>3 Years (36 months)</option>
+                                <option value="5">5 Years (60 months)</option>
+                                <option value="7">7 Years (84 months)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Calculated Results Box -->
+                    <div class="mt-8 pt-6 border-t border-slate-900 bg-slate-900/60 rounded-xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs text-slate-400 font-medium block">Estimated Monthly Payment</span>
+                            <span id="calc-result" class="text-3xl font-extrabold text-blue-400">$622 <span class="text-xs font-normal text-slate-400">/ mo</span></span>
+                        </div>
+                        <button id="recalc-btn" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-5 py-2.5 rounded-xl transition-colors">
+                            Recalculate
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-16 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Driver Feedback</span>
+                <h2 class="text-3xl font-bold text-white mt-1">What Owners Say</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+                    <div class="flex items-center text-amber-400 gap-1 text-xs">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        "The Toyota Corolla Altis Grande is the smooth driving standard. Incredible fuel mileage for long highway commutes, and resale value stays solid."
+                    </p>
+                    <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                        <span class="font-bold text-white">Ahmed Raza</span>
+                        <span class="text-slate-500">Corolla Altis Owner</span>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+                    <div class="flex items-center text-amber-400 gap-1 text-xs">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        "Suzuki Swift GLX offers insane value in city traffic. Nimble handling, modern screen integration, and very easy parking anywhere."
+                    </p>
+                    <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                        <span class="font-bold text-white">Sarah Jenkins</span>
+                        <span class="text-slate-500">Suzuki Swift Owner</span>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+                    <div class="flex items-center text-amber-400 gap-1 text-xs">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        "The Honda Civic 1.5 Turbo is pure driving fun. The acceleration and cabin finish feel like a luxury vehicle twice its price tag."
+                    </p>
+                    <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                        <span class="font-bold text-white">Kamran Malik</span>
+                        <span class="text-slate-500">Civic Oriel Owner</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-auto bg-slate-950 border-t border-slate-800/80 py-12 text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-3">
+                    <span class="text-xl font-extrabold text-white">Auto<span class="text-blue-500">Prime</span></span>
+                    <p class="text-xs text-slate-500 leading-relaxed">Your definitive showroom guide to Suzuki, Honda, and Toyota Corolla models.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Quick Links</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#showcase" class="hover:text-white transition-colors">Showroom Catalog</a></li>
+                        <li><a href="#comparison" class="hover:text-white transition-colors">Compare Specs</a></li>
+                        <li><a href="#calculator" class="hover:text-white transition-colors">Finance Calculator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Brands Covered</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#showcase" class="hover:text-white transition-colors">Suzuki Hatchbacks & Sedans</a></li>
+                        <li><a href="#showcase" class="hover:text-white transition-colors">Honda Civic & City</a></li>
+                        <li><a href="#showcase" class="hover:text-white transition-colors">Toyota Corolla Altis Lineup</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Newsletter</h4>
+                    <p class="text-xs text-slate-500 mb-2">Get price updates and newly released trims.</p>
+                    <div class="flex items-center gap-2">
+                        <input type="email" placeholder="Enter email" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs w-full focus:outline-none focus:border-blue-500">
+                        <button onclick="toast('Subscribed successfully!')" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-2 rounded-lg text-xs font-semibold">
+                            Join
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-slate-900 text-center text-xs text-slate-600">
+                &copy; 2026 AutoPrime Showcase Hub. All rights reserved. Brand names belong to their respective trademark owners.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Details / Test Drive Modal Overlay -->
+    <div id="modal-backdrop" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200">
+        <div id="modal-container" class="bg-slate-900 border border-slate-800 rounded-2xl max-w-xl w-full p-6 sm:p-8 relative shadow-2xl transform scale-95 transition-transform duration-200">
+            <button id="modal-close-btn" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Dynamic Content Slot inside modal -->
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-blue-600 text-white font-medium text-xs sm:text-sm px-5 py-3 rounded-xl shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+        <i class="fa-solid fa-circle-check text-base"></i>
+        <span id="toast-message">Message</span>
+    </div>
+
+    <script>
+        /* Vehicle Dataset containing Suzuki, Honda, and Toyota Corolla models */
+        const CAR_DATA = [
+            {
+                id: 'suzuki-swift-glx',
+                brand: 'Suzuki',
+                name: 'Suzuki Swift GLX CVT',
+                category: 'Hatchback',
+                price: 16500,
+                priceFormatted: '$16,500',
+                engine: '1.2L DUALJET K12M',
+                hp: '82 HP @ 6000 RPM',
+                transmission: 'CVT Automatic',
+                mileage: '18 - 20 km/L',
+                seats: 5,
+                tagline: 'Agile urban hatchback with modern tech',
+                badge: 'Popular City Car',
+                badgeColor: 'bg-red-500/10 text-red-400 border-red-500/20',
+                image: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80',
+                description: 'The Suzuki Swift GLX CVT combines sportiness with maximum fuel economy. Features push-start, cruise control, multi-information display, and LED projector headlights.'
+            },
+            {
+                id: 'suzuki-alto-vxr',
+                brand: 'Suzuki',
+                name: 'Suzuki Alto VXR',
+                category: 'Compact Hatchback',
+                price: 9200,
+                priceFormatted: '$9,200',
+                engine: '658cc R06A inline-3',
+                hp: '39 HP @ 6500 RPM',
+                transmission: '5-Speed Manual',
+                mileage: '20 - 22 km/L',
+                seats: 4,
+                tagline: 'Ultra-economical daily city commuter',
+                badge: 'Maximum Mileage',
+                badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+                image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80',
+                description: 'Ideal compact dimensions for tight city parking with unmatched fuel efficiency and low maintenance costs.'
+            },
+            {
+                id: 'suzuki-cultus-vxl',
+                brand: 'Suzuki',
+                name: 'Suzuki Cultus VXL Auto',
+                category: 'Hatchback',
+                price: 12800,
+                priceFormatted: '$12,800',
+                engine: '1.0L K10B inline-3',
+                hp: '67 HP @ 6000 RPM',
+                transmission: 'AGS Automated Manual',
+                mileage: '17 - 19 km/L',
+                seats: 5,
+                tagline: 'Spacious cabin and comfortable city driving',
+                badge: 'Value Pick',
+                badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+                image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80',
+                description: 'Generous legroom, safety airbags, and auto gear shift make Cultus a top candidate for family urban commutes.'
+            },
+            {
+                id: 'honda-civic-oriel',
+                brand: 'Honda',
+                name: 'Honda Civic Oriel 1.5 Turbo',
+                category: 'Sedan',
+                price: 30000,
+                priceFormatted: '$30,000',
+                engine: '1.5L DOHC VTEC Turbo',
+                hp: '176 HP @ 6000 RPM',
+                transmission: 'M-CVT Automatic',
+                mileage: '12 - 15 km/L',
+                seats: 5,
+                tagline: 'High performance turbocharged luxury sedan',
+                badge: 'Premium Flagship',
+                badgeColor: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+                image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=800&q=80',
+                description: 'The iconic Honda Civic Oriel features aggressive aesthetic design, sunroof, ambient lighting, drive modes, and advanced driver safety systems.'
+            },
+            {
+                id: 'honda-city-aspire',
+                brand: 'Honda',
+                name: 'Honda City 1.5 Aspire CVT',
+                category: 'Sedan',
+                price: 20500,
+                priceFormatted: '$20,500',
+                engine: '1.5L SOHC i-VTEC',
+                hp: '118 HP @ 6600 RPM',
+                transmission: 'CVT with Paddle Shifters',
+                mileage: '15 - 17 km/L',
+                seats: 5,
+                tagline: 'Refined comfort and executive styling',
+                badge: 'Executive Choice',
+                badgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80',
+                description: 'Featuring leather upholstery, rear AC vents, touch infotainment, and paddle shifters for seamless cruising.'
+            },
+            {
+                id: 'toyota-corolla-altis-16',
+                brand: 'Toyota Corolla',
+                name: 'Toyota Corolla Altis 1.6 CVT',
+                category: 'Sedan',
+                price: 22000,
+                priceFormatted: '$22,000',
+                engine: '1.6L Dual VVT-i 16-Valve',
+                hp: '120 HP @ 6000 RPM',
+                transmission: 'Super CVT-i 7-Speed',
+                mileage: '13 - 16 km/L',
+                seats: 5,
+                tagline: 'Legendary durability and smooth ride quality',
+                badge: 'Top Reliability',
+                badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+                image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=800&q=80',
+                description: 'World-renowned reliability, sturdy suspension built for tough roads, and low total cost of ownership.'
+            },
+            {
+                id: 'toyota-corolla-grande',
+                brand: 'Toyota Corolla',
+                name: 'Toyota Corolla Altis Grande 1.8',
+                category: 'Sedan',
+                price: 26500,
+                priceFormatted: '$26,500',
+                engine: '1.8L Dual VVT-i 16-Valve',
+                hp: '138 HP @ 6400 RPM',
+                transmission: 'CVT-i with Sport Mode',
+                mileage: '12 - 15 km/L',
+                seats: 5,
+                tagline: 'Flagship Corolla performance with sunroof',
+                badge: 'Best Seller',
+                badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+                image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=800&q=80',
+                description: 'Equipped with cruise control, paddle shifters, rear camera, automatic climate control, and sunroof.'
+            },
+            {
+                id: 'toyota-corolla-cross-hybrid',
+                brand: 'Toyota Corolla',
+                name: 'Toyota Corolla Cross Hybrid 1.8',
+                category: 'SUV / Crossover',
+                price: 34000,
+                priceFormatted: '$34,000',
+                engine: '1.8L Hybrid Electric Synergic',
+                hp: '168 HP Combined',
+                transmission: 'E-CVT Automatic',
+                mileage: '20 - 24 km/L',
+                seats: 5,
+                tagline: 'Eco-friendly hybrid crossover efficiency',
+                badge: 'Hybrid Eco',
+                badgeColor: 'bg-teal-500/10 text-teal-400 border-teal-500/20',
+                image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80',
+                description: 'Combines crossover ground clearance with Toyota Electric Hybrid powertrain for ultra-low emissions and fuel economy.'
+            }
+        ];
+
+        let activeFilter = 'All';
+        let searchQuery = '';
+
+        /* DOM Elements */
+        const carsGrid = document.getElementById('cars-grid');
+        const noResults = document.getElementById('no-results');
+        const searchInput = document.getElementById('search-input');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalContainer = document.getElementById('modal-container');
+        const modalContent = document.getElementById('modal-content');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+
+        /* Compare Elements */
+        const compareSelect1 = document.getElementById('compare-car-1');
+        const compareSelect2 = document.getElementById('compare-car-2');
+
+        /* Initialize Page */
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCars();
+            setupFilterListeners();
+            setupSearch();
+            setupComparisonSelectors();
+            setupFinanceCalculator();
+            setupMobileMenu();
+        });
+
+        function renderCars() {
+            const filtered = CAR_DATA.filter(car => {
+                const matchesFilter = (activeFilter === 'All') || (car.brand === activeFilter);
+                const matchesSearch = car.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      car.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      car.category.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            carsGrid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            filtered.forEach(car => {
+                const card = document.createElement('div');
+                card.className = 'group bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 card-glow';
+                
+                card.innerHTML = `
+                    <div>
+                        <!-- Image Preview -->
+                        <div class="relative h-48 overflow-hidden bg-slate-950">
+                            <img src="${car.image}" alt="${car.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100" loading="lazy">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+                            <span class="absolute top-3 right-3 text-[10px] font-bold px-2.5 py-1 rounded-full border backdrop-blur-md ${car.badgeColor}">
+                                ${car.badge}
+                            </span>
+                        </div>
+
+                        <!-- Content Body -->
+                        <div class="p-5 space-y-3">
+                            <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+                                <span><i class="fa-solid fa-tag text-blue-500 mr-1"></i>${car.brand}</span>
+                                <span><i class="fa-solid fa-car text-slate-500 mr-1"></i>${car.category}</span>
+                            </div>
+
+                            <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">${car.name}</h3>
+                            <p class="text-xs text-slate-400 line-clamp-2">${car.tagline}</p>
+
+                            <!-- Mini Specs Grid -->
+                            <div class="grid grid-cols-2 gap-2 pt-2 text-[11px] bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                                <div class="text-slate-400"><span class="block text-slate-500 text-[10px]">Engine</span>${car.engine}</div>
+                                <div class="text-slate-400"><span class="block text-slate-500 text-[10px]">Mileage</span>${car.mileage}</div>
+                                <div class="text-slate-400"><span class="block text-slate-500 text-[10px]">Transmission</span>${car.transmission}</div>
+                                <div class="text-slate-400"><span class="block text-slate-500 text-[10px]">Power</span>${car.hp.split('@')[0]}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer Actions -->
+                    <div class="p-5 pt-0 border-t border-slate-800/60 mt-4 flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Price Starts</span>
+                            <span class="text-lg font-extrabold text-emerald-400">${car.priceFormatted}</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openDetailsModal('${car.id}')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors" title="View Full Details">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <button onclick="openTestDriveModal('${car.id}')" class="px-3.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-all shadow-md shadow-blue-600/20">
+                                Test Drive
+                            </button>
+                        </div>
+                    </div>
+                `;
+                carsGrid.appendChild(card);
+            });
+        }
+
+        /* Filter Controls */
+        function setupFilterListeners() {
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.className = 'filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800';
+                    });
+                    btn.className = 'filter-btn active px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-blue-600 text-white shadow-md';
+                    
+                    activeFilter = btn.getAttribute('data-filter');
+                    renderCars();
+                });
+            });
+        }
+
+        /* Search Bar Input */
+        function setupSearch() {
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.trim();
+                renderCars();
+            });
+        }
+
+        function setupComparisonSelectors() {
+            CAR_DATA.forEach((car, index) => {
+                const opt1 = document.createElement('option');
+                opt1.value = car.id;
+                opt1.textContent = `${car.brand} - ${car.name}`;
+                if(index === 3) opt1.selected = true; // Default Civic
+                compareSelect1.appendChild(opt1);
+
+                const opt2 = document.createElement('option');
+                opt2.value = car.id;
+                opt2.textContent = `${car.brand} - ${car.name}`;
+                if(index === 6) opt2.selected = true; // Default Corolla Grande
+                compareSelect2.appendChild(opt2);
+            });
+
+            const updateComparison = () => {
+                const car1 = CAR_DATA.find(c => c.id === compareSelect1.value);
+                const car2 = CAR_DATA.find(c => c.id === compareSelect2.value);
+
+                if (car1) {
+                    document.getElementById('cmp-name-1').textContent = car1.name;
+                    document.getElementById('cmp-brand-1').textContent = car1.brand;
+                    document.getElementById('cmp-price-1').textContent = car1.priceFormatted;
+                    document.getElementById('cmp-engine-1').textContent = car1.engine;
+                    document.getElementById('cmp-hp-1').textContent = car1.hp;
+                    document.getElementById('cmp-trans-1').textContent = car1.transmission;
+                    document.getElementById('cmp-mpg-1').textContent = car1.mileage;
+                    document.getElementById('cmp-body-1').textContent = car1.category;
+                }
+
+                if (car2) {
+                    document.getElementById('cmp-name-2').textContent = car2.name;
+                    document.getElementById('cmp-brand-2').textContent = car2.brand;
+                    document.getElementById('cmp-price-2').textContent = car2.priceFormatted;
+                    document.getElementById('cmp-engine-2').textContent = car2.engine;
+                    document.getElementById('cmp-hp-2').textContent = car2.hp;
+                    document.getElementById('cmp-trans-2').textContent = car2.transmission;
+                    document.getElementById('cmp-mpg-2').textContent = car2.mileage;
+                    document.getElementById('cmp-body-2').textContent = car2.category;
+                }
+            };
+
+            compareSelect1.addEventListener('change', updateComparison);
+            compareSelect2.addEventListener('change', updateComparison);
+            updateComparison();
+        }
+
+        function setupFinanceCalculator() {
+            const priceInput = document.getElementById('calc-price');
+            const downInput = document.getElementById('calc-down');
+            const rateInput = document.getElementById('calc-rate');
+            const tenureSelect = document.getElementById('calc-tenure');
+            const resultDisplay = document.getElementById('calc-result');
+            const recalcBtn = document.getElementById('recalc-btn');
+
+            const calculateEMI = () => {
+                const P = parseFloat(priceInput.value) - parseFloat(downInput.value);
+                const annualRate = parseFloat(rateInput.value);
+                const r = (annualRate / 12) / 100;
+                const n = parseInt(tenureSelect.value) * 12;
+
+                if (P <= 0 || isNaN(P) || isNaN(r) || isNaN(n)) {
+                    resultDisplay.innerHTML = `$0 <span class="text-xs font-normal text-slate-400">/ mo</span>`;
+                    return;
+                }
+
+                const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+                resultDisplay.innerHTML = `$${Math.round(emi).toLocaleString()} <span class="text-xs font-normal text-slate-400">/ mo</span>`;
+            };
+
+            [priceInput, downInput, rateInput, tenureSelect].forEach(elem => {
+                elem.addEventListener('input', calculateEMI);
+            });
+            recalcBtn.addEventListener('click', calculateEMI);
+            calculateEMI();
+        }
+
+        function openModal() {
+            modalBackdrop.classList.remove('hidden');
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalContainer.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalContainer.classList.add('scale-95');
+            setTimeout(() => {
+                modalBackdrop.classList.add('hidden');
+            }, 200);
+        }
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', (e) => {
+            if (e.target === modalBackdrop) closeModal();
+        });
+
+        /* Detailed Vehicle Spec Modal */
+        function openDetailsModal(carId) {
+            const car = CAR_DATA.find(c => c.id === carId);
+            if (!car) return;
+
+            modalContent.innerHTML = `
+                <div class="space-y-5">
+                    <div class="relative h-48 rounded-xl overflow-hidden bg-slate-950">
+                        <img src="${car.image}" alt="${car.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-400">${car.brand}</span>
+                            <span class="text-xs text-slate-400">${car.category}</span>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-white">${car.name}</h3>
+                        <p class="text-xs text-slate-400 mt-1">${car.description}</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 text-xs bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <div><span class="text-slate-500 block">Price</span><strong class="text-emerald-400 text-sm">${car.priceFormatted}</strong></div>
+                        <div><span class="text-slate-500 block">Engine</span><strong class="text-slate-200">${car.engine}</strong></div>
+                        <div><span class="text-slate-500 block">Horsepower</span><strong class="text-slate-200">${car.hp}</strong></div>
+                        <div><span class="text-slate-500 block">Transmission</span><strong class="text-slate-200">${car.transmission}</strong></div>
+                        <div><span class="text-slate-500 block">Fuel Mileage</span><strong class="text-slate-200">${car.mileage}</strong></div>
+                        <div><span class="text-slate-500 block">Seating Capacity</span><strong class="text-slate-200">${car.seats} Seats</strong></div>
+                    </div>
+
+                    <div class="flex gap-3 pt-2">
+                        <button onclick="closeModal(); openTestDriveModal('${car.id}')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl text-xs transition-colors">
+                            Book Test Drive Now
+                        </button>
+                    </div>
+                </div>
+            `;
+            openModal();
+        }
+
+        /* Test Drive Request Modal Form */
+        function openTestDriveModal(carId) {
+            const car = CAR_DATA.find(c => c.id === carId);
+            
+            modalContent.innerHTML = `
+                <div class="space-y-4">
+                    <div class="border-b border-slate-800 pb-3">
+                        <span class="text-xs text-blue-400 font-semibold uppercase">Schedule Appointment</span>
+                        <h3 class="text-xl font-bold text-white">Book a Test Drive</h3>
+                        <p class="text-xs text-slate-400 mt-1">Requesting drive for <strong class="text-slate-200">${car ? car.name : 'Selected Vehicle'}</strong></p>
+                    </div>
+
+                    <form id="test-drive-form" onsubmit="submitTestDrive(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block text-slate-400 mb-1">Full Name</label>
+                            <input type="text" required placeholder="John Doe" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-200 focus:outline-none focus:border-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-400 mb-1">Phone Number</label>
+                            <input type="tel" required placeholder="+1 (555) 000-0000" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-200 focus:outline-none focus:border-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-400 mb-1">Preferred Dealership City</label>
+                            <select class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-200 focus:outline-none focus:border-blue-500">
+                                <option>Central Dealership</option>
+                                <option>North Motors Hub</option>
+                                <option>South City Outlet</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl text-xs transition-colors mt-2">
+                            Confirm Test Drive Booking
+                        </button>
+                    </form>
+                </div>
+            `;
+            openModal();
+        }
+
+        function submitTestDrive(e) {
+            e.preventDefault();
+            closeModal();
+            toast("Test drive booking request submitted! A representative will call you.");
+        }
+
+        /* Toast Helper */
+        function toast(msg) {
+            const toastElem = document.getElementById('toast');
+            const msgElem = document.getElementById('toast-message');
+            msgElem.textContent = msg;
+
+            toastElem.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toastElem.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        /* Mobile Nav Toggle */
+        function setupMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+
+        function scrollToShowcase() {
+            document.getElementById('showcase').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
